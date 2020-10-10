@@ -36,8 +36,8 @@ export const drawHand = (
   context: CanvasRenderingContext2D,
 ) => {
   predictions.forEach(({ landmarks }) => {
-    Object.keys(fingerJoints).forEach(finger => {
-      fingerJoints[finger as keyof typeof fingerJoints].forEach((joint, jointIndex) => {
+    (Object.keys(fingerJoints) as Array<keyof typeof fingerJoints>).forEach(finger => {
+      fingerJoints[finger].forEach((joint, jointIndex) => {
         if (jointIndex === fingerJoints[finger].length - 1) return;
 
         /* Get pairs of joints */
