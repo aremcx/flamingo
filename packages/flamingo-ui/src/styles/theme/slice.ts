@@ -15,10 +15,7 @@ const themeSlice = createSlice({
     changeTheme(state, action: PayloadAction<ThemeKeyType>) {
       state.selected = action.payload;
     },
-    sunsetSunriseLoaded(
-      state,
-      action: PayloadAction<Pick<ThemeState, 'sunrise' | 'sunset'>>,
-    ) {
+    sunsetSunriseLoaded(state, action: PayloadAction<Pick<ThemeState, 'sunrise' | 'sunset'>>) {
       state.sunrise = action.payload.sunrise;
       state.sunset = action.payload.sunset;
     },

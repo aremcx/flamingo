@@ -7,15 +7,9 @@ import { isSystemDark } from './utils';
 // First select the relevant part from the state
 const selectDomain = (state: RootState) => state.theme || initialState;
 
-export const selectSunrise = createSelector(
-  [selectDomain],
-  theme => theme.sunrise,
-);
+export const selectSunrise = createSelector([selectDomain], theme => theme.sunrise);
 
-export const selectSunset = createSelector(
-  [selectDomain],
-  theme => theme.sunset,
-);
+export const selectSunset = createSelector([selectDomain], theme => theme.sunset);
 
 export const selectTheme = createSelector([selectDomain], theme => {
   if (theme.selected === 'system') {
@@ -24,7 +18,4 @@ export const selectTheme = createSelector([selectDomain], theme => {
   return themes[theme.selected];
 });
 
-export const selectThemeKey = createSelector(
-  [selectDomain],
-  theme => theme.selected,
-);
+export const selectThemeKey = createSelector([selectDomain], theme => theme.selected);

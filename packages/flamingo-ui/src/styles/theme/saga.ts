@@ -6,10 +6,7 @@ const ipInfoKey = '07bddd08097853';
 
 export function* getSunsetSunrise() {
   try {
-    const { loc } = yield call(
-      request,
-      `https://ipinfo.io?callback&token=${ipInfoKey}`,
-    );
+    const { loc } = yield call(request, `https://ipinfo.io?callback&token=${ipInfoKey}`);
 
     var infoGeo = loc.split(',');
     var geo = {
