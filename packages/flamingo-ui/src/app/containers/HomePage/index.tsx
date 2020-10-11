@@ -74,7 +74,7 @@ export function HomePage() {
         <title>Home Page</title>
         <meta name="description" content={t(translations.app.quote)} />
       </Helmet>
-      <Camera ref={cameraRef as any} />
+      <Camera ref={cameraRef as any} videoConstraints={{ facingMode: { exact: 'environment' } }} />
       <Canvas ref={canvasRef} />
     </>
   );
