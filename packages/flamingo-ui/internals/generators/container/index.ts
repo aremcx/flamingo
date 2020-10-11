@@ -2,9 +2,8 @@
  * Component Generator
  */
 
-import { Actions, PlopGenerator } from 'node-plop';
+import { Actions, PlopGeneratorConfig } from 'node-plop';
 import path from 'path';
-
 import { containerExists } from '../utils';
 
 export enum ContainerProptNames {
@@ -22,7 +21,7 @@ export enum ContainerProptNames {
 const containersPath = path.join(__dirname, '../../../src/app/containers');
 const rootStatePath = path.join(__dirname, '../../../src/types/RootState.ts');
 
-export const containerGenerator: PlopGenerator = {
+export const containerGenerator: PlopGeneratorConfig = {
   description: 'Add a container component',
   prompts: [
     {
@@ -32,9 +31,7 @@ export const containerGenerator: PlopGenerator = {
       default: 'Form',
       validate: value => {
         if (/.+/.test(value)) {
-          return containerExists(value)
-            ? 'A container with this name already exists'
-            : true;
+          return containerExists(value) ? 'A container with this name already exists' : true;
         }
 
         return 'The name is required';
@@ -56,8 +53,7 @@ export const containerGenerator: PlopGenerator = {
       type: 'confirm',
       name: ContainerProptNames.wantSlice,
       default: true,
-      message:
-        'Do you want a redux slice(actions/selectors/reducer) for this container?',
+      message: 'Do you want a redux slice(actions/selectors/reducer) for this container?',
     },
     {
       type: 'confirm',
@@ -75,8 +71,7 @@ export const containerGenerator: PlopGenerator = {
       type: 'confirm',
       name: ContainerProptNames.wantTranslations,
       default: false,
-      message:
-        'Do you want i18n translations (i.e. will this component use text)?',
+      message: 'Do you want i18n translations (i.e. will this component use text)?',
     },
     {
       type: 'confirm',

@@ -2,9 +2,8 @@
  * Component Generator
  */
 
-import { Actions, PlopGenerator } from 'node-plop';
+import { Actions, PlopGeneratorConfig } from 'node-plop';
 import path from 'path';
-
 import { componentExists } from '../utils';
 
 export enum ComponentProptNames {
@@ -17,7 +16,7 @@ export enum ComponentProptNames {
 }
 const componentsPath = path.join(__dirname, '../../../src/app/components');
 
-export const componentGenerator: PlopGenerator = {
+export const componentGenerator: PlopGeneratorConfig = {
   description: 'Add an unconnected component',
   prompts: [
     {
@@ -27,9 +26,7 @@ export const componentGenerator: PlopGenerator = {
       default: 'Button',
       validate: value => {
         if (/.+/.test(value)) {
-          return componentExists(value)
-            ? 'A component with this name already exists'
-            : true;
+          return componentExists(value) ? 'A component with this name already exists' : true;
         }
 
         return 'The name is required';
@@ -51,8 +48,7 @@ export const componentGenerator: PlopGenerator = {
       type: 'confirm',
       name: ComponentProptNames.wantTranslations,
       default: false,
-      message:
-        'Do you want i18n translations (i.e. will this component use text)?',
+      message: 'Do you want i18n translations (i.e. will this component use text)?',
     },
     {
       type: 'confirm',
