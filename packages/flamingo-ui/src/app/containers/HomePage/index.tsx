@@ -1,7 +1,7 @@
-import * as handpose from '@tensorflow-models/handpose';
 import '@tensorflow/tfjs';
 import { translations } from 'locales/i18n';
 import React, { useRef } from 'react';
+import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import ReactWebcam from 'react-webcam';
@@ -9,15 +9,11 @@ import styled, { css } from 'styled-components/macro';
 import { drawHand } from 'utils/canvas/draw-hand';
 
 const shared = css`
-  height: 480px;
-  left: 0;
-  margin-left: auto;
-  margin-right: auto;
-  position: absolute;
+  bottom: 0;
+  min-height: 100%;
+  min-width: 100%;
+  position: fixed;
   right: 0;
-  text-align: center;
-  width: 640px;
-  z-index: 9;
 `;
 
 const Camera = styled(ReactWebcam)`
@@ -35,12 +31,11 @@ export function HomePage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const runHandpose = async () => {
-    const net = await handpose.load();
-
-    /* Loop and detect hands */
-    setInterval(() => {
-      detect(net);
-    }, 100);
+    // const net = await handpose.load();
+    // /* Loop and detect hands */
+    // setInterval(() => {
+    //   detect(net);
+    // }, 100);
   };
 
   const detect = async (net: any) => {
@@ -74,7 +69,10 @@ export function HomePage() {
         <title>Home Page</title>
         <meta name="description" content={t(translations.app.quote)} />
       </Helmet>
-      <Camera ref={cameraRef as any} videoConstraints={{ facingMode: { exact: 'environment' } }} />
+      <Camera
+        ref={cameraRef as any}
+        videoConstraints={{ facingMode: isMobile ? { exact: 'environment' } : 'user' }}
+      />
       <Canvas ref={canvasRef} />
     </>
   );

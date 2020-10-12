@@ -16,8 +16,8 @@ import { HomePage } from './containers/HomePage/Loadable';
 export function App() {
   return (
     <BrowserRouter>
-      <Helmet titleTemplate="%s - React Boilerplate" defaultTitle="React Boilerplate">
-        <meta name="description" content="A React Boilerplate application" />
+      <Helmet titleTemplate="%s - Flamingo" defaultTitle="Flamingo">
+        <meta name="description" content="A Flamingo application" />
       </Helmet>
 
       <Switch>
