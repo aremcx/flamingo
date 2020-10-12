@@ -1,3 +1,4 @@
+import * as handpose from '@tensorflow-models/handpose';
 import '@tensorflow/tfjs';
 import { translations } from 'locales/i18n';
 import React, { useRef } from 'react';
@@ -7,13 +8,12 @@ import { useTranslation } from 'react-i18next';
 import ReactWebcam from 'react-webcam';
 import styled, { css } from 'styled-components/macro';
 import { drawHand } from 'utils/canvas/draw-hand';
+import { HandposeConfig } from './types';
 
 const shared = css`
-  bottom: 0;
-  min-height: 100%;
-  min-width: 100%;
-  position: fixed;
-  right: 0;
+  height: 480px;
+  position: absolute;
+  width: 640px;
 `;
 
 const Camera = styled(ReactWebcam)`
@@ -31,11 +31,12 @@ export function HomePage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const runHandpose = async () => {
-    // const net = await handpose.load();
-    // /* Loop and detect hands */
-    // setInterval(() => {
-    //   detect(net);
-    // }, 100);
+    const net = await handpose.load({ detectionConfidence: 0.6 } as HandposeConfig);
+
+    /* Loop and detect hands */
+    setInterval(() => {
+      detect(net);
+    }, 10);
   };
 
   const detect = async (net: any) => {

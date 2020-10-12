@@ -14,7 +14,6 @@ import { Provider } from 'react-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import * as serviceWorker from 'serviceWorker';
 import 'sanitize.css/sanitize.css';
-import '@tensorflow/tfjs';
 
 // Import root app
 import { App } from 'app';
