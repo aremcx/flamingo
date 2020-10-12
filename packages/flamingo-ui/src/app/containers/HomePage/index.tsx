@@ -2,7 +2,6 @@ import * as handpose from '@tensorflow-models/handpose';
 import '@tensorflow/tfjs';
 import { translations } from 'locales/i18n';
 import React, { useRef } from 'react';
-import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import ReactWebcam from 'react-webcam';
@@ -31,12 +30,17 @@ export function HomePage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const runHandpose = async () => {
-    const net = await handpose.load({ detectionConfidence: 0.6 } as HandposeConfig);
+    const net = await handpose.load({
+      detectionConfidence: 0.3,
+      iouThreshold: 0.3,
+      scoreThreshold: 0.5,
+    } as HandposeConfig);
+    console.log('Handpose finished loading');
 
     /* Loop and detect hands */
     setInterval(() => {
       detect(net);
-    }, 10);
+    });
   };
 
   const detect = async (net: any) => {
@@ -72,7 +76,12 @@ export function HomePage() {
       </Helmet>
       <Camera
         ref={cameraRef as any}
-        videoConstraints={{ facingMode: isMobile ? { exact: 'environment' } : 'user' }}
+        audio={false}
+        videoConstraints={{
+          facingMode: 'environment',
+          width: 640,
+          height: 480,
+        }}
       />
       <Canvas ref={canvasRef} />
     </>
